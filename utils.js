@@ -2,12 +2,34 @@ function setIdValue(id, player, score) {
     document.getElementById(id + player).textContent = score;
 }
 
-function initValues() {
+function setInputValue(id, value) {
+    document.getElementById(id).value = value;
+}
+
+function resetGameValues() {
+    scores = [0, 0];
+    activePlayer = 0;
+    roundScore = 0;
+    gamePlaying = true;
+
+    setInputValue(inputScore, winnerScore);
+
     setIdValue(scoreId, 0, 0);
     setIdValue(scoreId, 1, 0);
 
     setIdValue(contentId, 0, 0);
     setIdValue(contentId, 1, 0);
+
+    setIdValue(nameLabel, 0, 'Player1');
+    setIdValue(nameLabel, 1, 'Player2');
+
+    document.querySelector(getPanelClass(0)).classList.remove(winnerPanel);
+    document.querySelector(getPanelClass(1)).classList.remove(winnerPanel);
+
+    document.querySelector(getPanelClass(0)).classList.remove(active);
+    document.querySelector(getPanelClass(1)).classList.remove(active);
+
+    document.querySelector(getPanelClass(0)).classList.add(active);
 }
 
 function getDiceRandomValue() {
@@ -49,4 +71,9 @@ function nextPlayer() {
     setActivePanelStatus(0);
     setActivePanelStatus(1);
     hideDice();
+}
+
+function updateGlobalScore(newScore) {
+    console.log('Entered updateGlobalScore()... ', newScore);
+    winnerScore = newScore;
 }

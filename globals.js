@@ -7,8 +7,9 @@ const playerClass = '.player-';
 const panel = '-panel';
 const active = 'active';
 const nameLabel = 'name-';
-const winnerScore = 50;
 const winnerText = 'Winner!';
 const winnerPanel = 'winner';
+const inputScore = 'game-input';
 
+let winnerScore = 50;
 let activePlayer = 0;

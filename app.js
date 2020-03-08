@@ -8,20 +8,21 @@
         - The first player to reach 100 points on GLOBAL score wins the game
 */
 
-var scores, roundScore, dice;
-scores = [0, 0];
-roundScore = 0;
+let scores, roundScore, dice;
 
-initValues();
+resetGameValues();
+
 dice = getDiceRandomValue();
 
 hideDice();
 document.querySelector('.btn-roll').addEventListener('click', function() {
+    if (!gamePlaying) return;
+
     //1. Random number
-    var dice = Math.floor(Math.random() * 6) + 1;
+    const dice = Math.floor(Math.random() * 6) + 1;
 
     //2. Display the result
-    var diceDOM = document.querySelector('.dice');
+    let diceDOM = document.querySelector('.dice');
     diceDOM.style.display = 'block';
     diceDOM.src = getDiceImageSrc(dice);
 
@@ -34,6 +35,8 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function() {
+    if (!gamePlaying) return;
+
     // Add CURRENT score to GLOBAL score
     scores[activePlayer] += roundScore;
     setIdValue(scoreId, activePlayer, scores[activePlayer]);
@@ -43,8 +46,11 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         setIdValue(nameLabel, activePlayer, winnerText);
         hideDice();
         setWinnerPanelStatus(activePlayer);
+        gamePlaying = false;
     } else {
         // Update the UI
         nextPlayer();
     }
 });
+
+document.querySelector('.btn-new').addEventListener('click', resetGameValues);
